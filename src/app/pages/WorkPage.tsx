@@ -1,17 +1,10 @@
 import { motion } from 'motion/react';
-import { ProjectCard } from '../components/ProjectCard';
-import { projects } from '../data/projects';
-import { useState } from 'react';
-
-const categories = ['All', 'Architecture & Design', 'UI/UX Design', 'Web Development', 'Branding & Identity'];
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs';
+import { ArticleCard } from '../components/ArticleCard';
+import { VideoCard } from '../components/VideoCard';
+import { faithArticles, faithVideos } from '../data/faithContent';
 
 export function WorkPage() {
-  const [activeCategory, setActiveCategory] = useState('All');
-
-  const filteredProjects = activeCategory === 'All' 
-    ? projects 
-    : projects.filter(p => p.category === activeCategory);
-
   return (
     <div className="pt-32 pb-20 px-6">
       <div className="max-w-7xl mx-auto">
@@ -19,42 +12,47 @@ export function WorkPage() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="mb-16"
+          className="mb-6"
         >
-          <h1 className="text-6xl md:text-8xl tracking-tighter mb-6">All Projects</h1>
+          <h1 className="text-6xl md:text-8xl tracking-tighter mb-6">Fe de Jesús</h1>
           <p className="text-xl text-gray-600 max-w-2xl">
-            A comprehensive collection of my work across design, development, and branding.
+            Una investigación a fondo sobre lo que significa vivir la fe de Jesús hoy: artículos y
+            videos que explican, con base bíblica, las doctrinas y la identidad del pueblo remanente.
           </p>
         </motion.div>
 
-        {/* Filter */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="mb-12 flex flex-wrap gap-3"
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.15 }}
+          className="text-sm tracking-wide text-gray-500 mb-16 italic"
         >
-          {categories.map((category) => (
-            <button
-              key={category}
-              onClick={() => setActiveCategory(category)}
-              className={`px-6 py-2 rounded-full text-sm tracking-wide transition-all ${
-                activeCategory === category
-                  ? 'bg-black text-white'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-              }`}
-            >
-              {category}
-            </button>
-          ))}
-        </motion.div>
+          "Aquí está la paciencia de los santos, los que guardan los mandamientos de Dios y la fe
+          de Jesús." — Apocalipsis 14:12
+        </motion.p>
 
-        {/* Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredProjects.map((project, index) => (
-            <ProjectCard key={project.id} project={project} index={index} />
-          ))}
-        </div>
+        <Tabs defaultValue="articulos">
+          <TabsList className="mb-12">
+            <TabsTrigger value="articulos">Artículos</TabsTrigger>
+            <TabsTrigger value="videos">Videos</TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="articulos">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {faithArticles.map((article, index) => (
+                <ArticleCard key={article.id} article={article} index={index} />
+              ))}
+            </div>
+          </TabsContent>
+
+          <TabsContent value="videos">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {faithVideos.map((video, index) => (
+                <VideoCard key={video.id} video={video} index={index} />
+              ))}
+            </div>
+          </TabsContent>
+        </Tabs>
       </div>
     </div>
   );

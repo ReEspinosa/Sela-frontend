@@ -1,100 +1,67 @@
 import { motion } from 'motion/react';
-import { Code2, Palette, Layers, Sparkles, Award, Users, Zap } from 'lucide-react';
+import { BookOpen, Heart, Calendar, Users } from 'lucide-react';
+import { ChurchFinder } from '../components/ChurchFinder';
 
-const skills = [
-  {
-    icon: Code2,
-    title: 'Development',
-    description: 'Expert in modern web technologies including React, TypeScript, and Node.js',
-  },
-  {
-    icon: Palette,
-    title: 'Design',
-    description: 'Creating beautiful, user-centered interfaces with attention to detail',
-  },
-  {
-    icon: Layers,
-    title: 'Architecture',
-    description: 'Building scalable systems with clean, maintainable code',
-  },
-  {
-    icon: Sparkles,
-    title: 'Innovation',
-    description: 'Pushing boundaries with creative solutions and cutting-edge tech',
-  },
+const creemos = [
+  { title: 'La Biblia', description: 'Como única fuente de fe y doctrina.' },
+  { title: 'La gracia', description: 'La salvación se recibe por fe en Jesucristo, no se gana.' },
+  { title: 'El sábado', description: 'Día de reposo y adoración desde la creación.' },
+  { title: 'El cuerpo', description: 'Un templo que se cuida como parte de la vida espiritual.' },
+  { title: 'La segunda venida', description: 'La esperanza central de la fe cristiana.' },
 ];
 
-const stats = [
-  { icon: Award, value: '50+', label: 'Projects Completed' },
-  { icon: Users, value: '30+', label: 'Happy Clients' },
-  { icon: Zap, value: '8+', label: 'Years Experience' },
-];
-
-const experience = [
-  {
-    company: 'Creative Digital Agency',
-    role: 'Senior Creative Developer',
-    period: '2020 - Present',
-    description: 'Leading digital product development and design for Fortune 500 clients and innovative startups.',
-  },
-  {
-    company: 'Tech Startup Inc.',
-    role: 'Lead Product Designer',
-    period: '2018 - 2020',
-    description: 'Designed and shipped multiple successful product features, growing the user base from 10K to 500K users.',
-  },
-  {
-    company: 'Design Studio',
-    role: 'UI/UX Designer',
-    period: '2016 - 2018',
-    description: 'Crafted beautiful user experiences for web and mobile applications across various industries.',
-  },
+const cifras = [
+  { icon: Calendar, value: '1863', label: 'Año de organización oficial' },
+  { icon: Users, value: '200+', label: 'Países con presencia adventista' },
+  { icon: BookOpen, value: '22', label: 'Lecciones de estudio bíblico' },
 ];
 
 export function AboutPage() {
   return (
     <div className="pt-32 pb-20">
-      {/* Hero Section */}
+      {/* Hero */}
       <div className="max-w-7xl mx-auto px-6 mb-32">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <h1 className="text-6xl md:text-8xl tracking-tighter mb-8">About Me</h1>
+          <h1 className="text-6xl md:text-8xl tracking-tighter mb-8">Quiénes somos</h1>
           <div className="grid md:grid-cols-2 gap-12">
             <div className="space-y-6">
               <p className="text-xl text-gray-700 leading-relaxed">
-                I&apos;m a multidisciplinary creative professional with over 8 years of experience 
-                in digital product design and development.
+                Somos parte de la Iglesia Adventista del Séptimo Día, un movimiento cristiano
+                mundial que basa su fe y su forma de vivir en la Biblia como única regla de fe y
+                práctica.
               </p>
               <p className="text-gray-600 leading-relaxed">
-                My work combines technical expertise with creative vision to build experiences 
-                that are not only functional but delightful. I believe in the power of design 
-                to solve complex problems and create meaningful connections.
+                La Iglesia Adventista del Séptimo Día es una comunidad cristiana protestante
+                presente en más de 200 países. Su nombre resume dos convicciones centrales: la
+                observancia del sábado como día de reposo, tal como lo establece el cuarto
+                mandamiento, y la espera activa de la segunda venida de Jesucristo.
               </p>
               <p className="text-gray-600 leading-relaxed">
-                Currently based in San Francisco, working with startups and established 
-                brands to bring their digital visions to life. When I&apos;m not designing or coding, 
-                you can find me exploring new technologies, contributing to open source, or 
-                speaking at design conferences.
+                Cree en la Biblia como la Palabra de Dios y en la salvación por gracia, a través
+                de la fe en Jesucristo. No exige perfección para pertenecer: acompaña el proceso
+                de cada persona en su búsqueda de la verdad.
               </p>
             </div>
             <div className="space-y-4">
-              <h3 className="text-2xl tracking-tight mb-6">Core Expertise</h3>
-              <div className="space-y-3">
-                {['User Interface Design', 'Front-end Development', 'Interactive Prototyping', 
-                  'Design Systems', 'Motion Design', '3D & WebGL', 'Brand Identity', 
-                  'User Research'].map((item, index) => (
+              <h3 className="text-2xl tracking-tight mb-6">Lo que creemos</h3>
+              <div className="space-y-5">
+                {creemos.map((item, index) => (
                   <motion.div
-                    key={item}
+                    key={item.title}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.4, delay: 0.3 + index * 0.05 }}
-                    className="flex items-center gap-3"
+                    className="flex items-start gap-3"
                   >
-                    <div className="w-2 h-2 bg-black rounded-full" />
-                    <span className="text-gray-700">{item}</span>
+                    <div className="w-2 h-2 bg-black rounded-full mt-2 shrink-0" />
+                    <div>
+                      <span className="tracking-tight">{item.title}</span>
+                      <p className="text-gray-600 text-sm">{item.description}</p>
+                    </div>
                   </motion.div>
                 ))}
               </div>
@@ -103,11 +70,11 @@ export function AboutPage() {
         </motion.div>
       </div>
 
-      {/* Stats */}
+      {/* Cifras */}
       <div className="bg-black text-white py-20 mb-32">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-            {stats.map((stat, index) => (
+            {cifras.map((stat, index) => (
               <motion.div
                 key={stat.label}
                 initial={{ opacity: 0, y: 30 }}
@@ -125,7 +92,7 @@ export function AboutPage() {
         </div>
       </div>
 
-      {/* Skills */}
+      {/* Nuestra forma de acompañar */}
       <div className="max-w-7xl mx-auto px-6 mb-32">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
@@ -133,57 +100,69 @@ export function AboutPage() {
           viewport={{ once: true }}
           className="text-4xl md:text-5xl tracking-tight mb-12"
         >
-          What I Do
+          Cómo te acompañamos
         </motion.h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {skills.map((skill, index) => (
-            <motion.div
-              key={skill.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              whileHover={{ y: -8 }}
-              className="p-6 bg-gray-50 rounded-lg"
-            >
-              <skill.icon className="mb-4" size={32} />
-              <h4 className="text-xl tracking-tight mb-2">{skill.title}</h4>
-              <p className="text-gray-600 text-sm leading-relaxed">
-                {skill.description}
-              </p>
-            </motion.div>
-          ))}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            whileHover={{ y: -8 }}
+            className="p-6 bg-gray-50 rounded-lg"
+          >
+            <Heart className="mb-4" size={32} />
+            <h4 className="text-xl tracking-tight mb-2">Sin presión</h4>
+            <p className="text-gray-600 text-sm leading-relaxed">
+              Puedes preguntar, dudar y avanzar a tu propio ritmo.
+            </p>
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            whileHover={{ y: -8 }}
+            className="p-6 bg-gray-50 rounded-lg"
+          >
+            <BookOpen className="mb-4" size={32} />
+            <h4 className="text-xl tracking-tight mb-2">Con base bíblica</h4>
+            <p className="text-gray-600 text-sm leading-relaxed">
+              Cada respuesta se fundamenta en la Escritura, no en opiniones.
+            </p>
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            whileHover={{ y: -8 }}
+            className="p-6 bg-gray-50 rounded-lg"
+          >
+            <Users className="mb-4" size={32} />
+            <h4 className="text-xl tracking-tight mb-2">En comunidad</h4>
+            <p className="text-gray-600 text-sm leading-relaxed">
+              No estás solo en este proceso: hay una iglesia cerca de ti.
+            </p>
+          </motion.div>
         </div>
       </div>
 
-      {/* Experience */}
+      {/* Buscador de iglesias */}
       <div className="bg-gray-50 py-20">
         <div className="max-w-4xl mx-auto px-6">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl md:text-5xl tracking-tight mb-12"
+            className="text-4xl md:text-5xl tracking-tight mb-4"
           >
-            Experience
+            Encuentra una congregación cerca de ti
           </motion.h2>
-          <div className="space-y-12">
-            {experience.map((job, index) => (
-              <motion.div
-                key={job.company}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="border-l-2 border-black pl-6"
-              >
-                <div className="text-sm text-gray-500 mb-2">{job.period}</div>
-                <h3 className="text-2xl tracking-tight mb-1">{job.role}</h3>
-                <div className="text-gray-600 mb-3">{job.company}</div>
-                <p className="text-gray-700 leading-relaxed">{job.description}</p>
-              </motion.div>
-            ))}
-          </div>
+          <p className="text-gray-600 mb-10">
+            No tienes que vivir esta fe en soledad. Busca la iglesia adventista más cercana a tu
+            domicilio.
+          </p>
+          <ChurchFinder />
         </div>
       </div>
     </div>

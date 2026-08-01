@@ -1,8 +1,9 @@
 import { motion } from "motion/react";
 import { ArrowDown } from "lucide-react";
-import { Link } from "react-router-dom";
+import { useChatbot } from "../context/ChatbotContext";
 
 export function Hero() {
+  const { openChatbot } = useChatbot();
   const text = "Explora las Verdades Bíblicas";
   const words = text.split(" ");
 
@@ -49,8 +50,8 @@ export function Hero() {
             transition={{ duration: 0.8, delay: 1 }}
             className="text-gray-500 max-w-2xl mx-auto leading-relaxed"
           >
-              Descubre las doctrinas biblicas con nuestro asistente inteligente,
-              estudia el curso Fe de Jesus y encuentra la iglesia adventista mas cercana a tu hogar.
+              Descubre las doctrinas bíblicas con nuestro Asistente Bíblico,
+              estudia el curso Fe de Jesús y encuentra la iglesia adventista más cercana a tu hogar.
           </motion.p>
 
           <motion.div
@@ -59,15 +60,14 @@ export function Hero() {
             transition={{ duration: 0.8, delay: 1.2 }}
             className="pt-8"
           >
-            <Link to="/work">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 bg-black text-white rounded-full tracking-wide hover:bg-gray-800 transition-colors"
-              >
-                Probar Chat
-              </motion.button>
-            </Link>
+            <motion.button
+              onClick={() => openChatbot()}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="px-8 py-4 bg-black text-white rounded-full tracking-wide hover:bg-gray-800 transition-colors"
+            >
+              Habla con el Asistente Bíblico
+            </motion.button>
           </motion.div>
         </div>
       </div>

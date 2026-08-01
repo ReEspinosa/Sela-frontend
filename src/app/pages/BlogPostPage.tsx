@@ -11,9 +11,9 @@ export function BlogPostPage() {
   if (!post) {
     return (
       <div className="pt-32 pb-20 px-6 text-center">
-        <h1 className="text-4xl mb-4">Post not found</h1>
+        <h1 className="text-4xl mb-4">Artículo no encontrado</h1>
         <Link to="/blog" className="text-blue-600 hover:underline">
-          Back to blog
+          Volver al blog
         </Link>
       </div>
     );
@@ -30,7 +30,7 @@ export function BlogPostPage() {
           className="inline-flex items-center gap-2 text-sm tracking-wide hover:gap-3 transition-all"
         >
           <ArrowLeft size={16} />
-          Back to Blog
+          Volver al blog
         </button>
       </div>
 
@@ -51,7 +51,7 @@ export function BlogPostPage() {
           <div className="flex flex-wrap items-center gap-6 text-sm text-gray-600">
             <div className="flex items-center gap-2">
               <Calendar size={16} />
-              {new Date(post.date).toLocaleDateString('en-US', {
+              {new Date(post.date).toLocaleDateString('es-MX', {
                 month: 'long',
                 day: 'numeric',
                 year: 'numeric'
@@ -61,10 +61,10 @@ export function BlogPostPage() {
               <Clock size={16} />
               {post.readTime}
             </div>
-            <div>By {post.author}</div>
+            <div>Por {post.author}</div>
             <button className="flex items-center gap-2 hover:text-black transition-colors ml-auto">
               <Share2 size={16} />
-              Share
+              Compartir
             </button>
           </div>
         </motion.div>
@@ -103,7 +103,7 @@ export function BlogPostPage() {
       {relatedPosts.length > 0 && (
         <div className="bg-gray-50 py-20">
           <div className="max-w-7xl mx-auto px-6">
-            <h2 className="text-4xl tracking-tight mb-12">Related Articles</h2>
+            <h2 className="text-4xl tracking-tight mb-12">Artículos relacionados</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {relatedPosts.map((relatedPost, index) => (
                 <Link key={relatedPost.id} to={`/blog/${relatedPost.id}`}>

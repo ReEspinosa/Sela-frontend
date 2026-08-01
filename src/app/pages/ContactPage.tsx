@@ -1,40 +1,43 @@
 import { motion } from 'motion/react';
-import { Mail, Linkedin, Github, Twitter, MapPin, Phone } from 'lucide-react';
+import { Mail, Facebook, Instagram, Youtube, MapPin, Phone, BookOpen, Download } from 'lucide-react';
 import { useState } from 'react';
 
 const contactInfo = [
-  { icon: Mail, label: 'Email', value: 'hello@alexmorgan.com', href: 'mailto:hello@alexmorgan.com' },
-  { icon: Phone, label: 'Phone', value: '+1 (555) 123-4567', href: 'tel:+15551234567' },
-  { icon: MapPin, label: 'Location', value: 'San Francisco, CA', href: '#' },
+  { icon: Mail, label: 'Correo', value: 'contacto@sela.org', href: 'mailto:contacto@sela.org' },
+  { icon: Phone, label: 'Teléfono', value: '55 1234 5678', href: 'tel:+525512345678' },
+  { icon: MapPin, label: 'Ubicación', value: 'Ciudad de México', href: '#' },
 ];
 
 const socialLinks = [
-  { icon: Linkedin, label: 'LinkedIn', href: '#' },
-  { icon: Github, label: 'GitHub', href: '#' },
-  { icon: Twitter, label: 'Twitter', href: '#' },
+  { icon: Facebook, label: 'Facebook', href: '#' },
+  { icon: Instagram, label: 'Instagram', href: '#' },
+  { icon: Youtube, label: 'YouTube', href: '#' },
+];
+
+// CAMBIA: reemplaza href por la URL real de cada PDF cuando la tengas.
+const recursos = [
+  { title: 'Biblia Reina-Valera 1960 (PDF)', description: 'Texto completo, descarga gratuita.', href: '#' },
+  { title: 'Biblia Nueva Versión Internacional (PDF)', description: 'Texto completo, descarga gratuita.', href: '#' },
+  { title: 'El Deseado de todas las gentes', description: 'Elena G. de White', href: '#' },
+  { title: 'El Camino a Cristo', description: 'Elena G. de White', href: '#' },
+  { title: 'El Conflicto de los Siglos', description: 'Elena G. de White', href: '#' },
+  { title: 'Patriarcas y Profetas', description: 'Elena G. de White', href: '#' },
 ];
 
 export function ContactPage() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: '',
-  });
+  const [formData, setFormData] = useState({ nombre: '', correo: '', asunto: '', mensaje: '' });
+  const [enviado, setEnviado] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
-    console.log('Form submitted:', formData);
-    alert('Thank you for your message! I\'ll get back to you soon.');
-    setFormData({ name: '', email: '', subject: '', message: '' });
+    // CAMBIA: conecta esto a tu backend de contacto.
+    console.log('Mensaje de contacto:', formData);
+    setEnviado(true);
+    setFormData({ nombre: '', correo: '', asunto: '', mensaje: '' });
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData(prev => ({
-      ...prev,
-      [e.target.name]: e.target.value
-    }));
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   return (
@@ -46,107 +49,121 @@ export function ContactPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <h1 className="text-6xl md:text-8xl tracking-tighter mb-8">Get In Touch</h1>
+          <h1 className="text-6xl md:text-8xl tracking-tighter mb-8">Contacto</h1>
           <p className="text-xl text-gray-600 max-w-2xl">
-            Have a project in mind or just want to chat? I&apos;d love to hear from you.
+            ¿Tienes una pregunta, quieres compartir tu testimonio o necesitas ayuda? Escríbenos.
           </p>
         </motion.div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-6 mb-32">
         <div className="grid lg:grid-cols-2 gap-16">
-          {/* Contact Form */}
+          {/* Formulario */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <label htmlFor="name" className="block text-sm tracking-wide mb-2">
-                  Name
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:border-black transition-colors"
-                  placeholder="Your name"
-                />
+            {enviado ? (
+              <div className="p-8 bg-gray-50 rounded-lg text-center">
+                <h3 className="text-2xl tracking-tight mb-2">Mensaje enviado</h3>
+                <p className="text-gray-600 mb-6">
+                  Gracias por escribirnos. Te responderemos lo antes posible.
+                </p>
+                <button
+                  onClick={() => setEnviado(false)}
+                  className="text-sm tracking-wide underline underline-offset-4 hover:text-gray-600 transition-colors"
+                >
+                  Enviar otro mensaje
+                </button>
               </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div>
+                  <label htmlFor="nombre" className="block text-sm tracking-wide mb-2">
+                    Nombre
+                  </label>
+                  <input
+                    type="text"
+                    id="nombre"
+                    name="nombre"
+                    value={formData.nombre}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:border-black transition-colors"
+                    placeholder="Tu nombre"
+                  />
+                </div>
 
-              <div>
-                <label htmlFor="email" className="block text-sm tracking-wide mb-2">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:border-black transition-colors"
-                  placeholder="your@email.com"
-                />
-              </div>
+                <div>
+                  <label htmlFor="correo" className="block text-sm tracking-wide mb-2">
+                    Correo electrónico
+                  </label>
+                  <input
+                    type="email"
+                    id="correo"
+                    name="correo"
+                    value={formData.correo}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:border-black transition-colors"
+                    placeholder="tu@correo.com"
+                  />
+                </div>
 
-              <div>
-                <label htmlFor="subject" className="block text-sm tracking-wide mb-2">
-                  Subject
-                </label>
-                <input
-                  type="text"
-                  id="subject"
-                  name="subject"
-                  value={formData.subject}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:border-black transition-colors"
-                  placeholder="How can I help?"
-                />
-              </div>
+                <div>
+                  <label htmlFor="asunto" className="block text-sm tracking-wide mb-2">
+                    Asunto
+                  </label>
+                  <input
+                    type="text"
+                    id="asunto"
+                    name="asunto"
+                    value={formData.asunto}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:border-black transition-colors"
+                    placeholder="¿En qué podemos ayudarte?"
+                  />
+                </div>
 
-              <div>
-                <label htmlFor="message" className="block text-sm tracking-wide mb-2">
-                  Message
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  required
-                  rows={6}
-                  className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:border-black transition-colors resize-none"
-                  placeholder="Tell me about your project..."
-                />
-              </div>
+                <div>
+                  <label htmlFor="mensaje" className="block text-sm tracking-wide mb-2">
+                    Mensaje
+                  </label>
+                  <textarea
+                    id="mensaje"
+                    name="mensaje"
+                    value={formData.mensaje}
+                    onChange={handleChange}
+                    required
+                    rows={6}
+                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:border-black transition-colors resize-none"
+                    placeholder="Cuéntanos qué necesitas..."
+                  />
+                </div>
 
-              <motion.button
-                type="submit"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="w-full px-8 py-4 bg-black text-white rounded-lg tracking-wide hover:bg-gray-800 transition-colors"
-              >
-                Send Message
-              </motion.button>
-            </form>
+                <motion.button
+                  type="submit"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="w-full px-8 py-4 bg-black text-white rounded-lg tracking-wide hover:bg-gray-800 transition-colors"
+                >
+                  Enviar mensaje
+                </motion.button>
+              </form>
+            )}
           </motion.div>
 
-          {/* Contact Info */}
+          {/* Info de contacto */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
             className="space-y-12"
           >
-            {/* Info Cards */}
             <div className="space-y-6">
-              <h2 className="text-3xl tracking-tight mb-8">Contact Information</h2>
+              <h2 className="text-3xl tracking-tight mb-8">Información de contacto</h2>
               {contactInfo.map((info, index) => (
                 <motion.a
                   key={info.label}
@@ -167,9 +184,8 @@ export function ContactPage() {
               ))}
             </div>
 
-            {/* Social Links */}
             <div>
-              <h2 className="text-3xl tracking-tight mb-6">Follow Me</h2>
+              <h2 className="text-3xl tracking-tight mb-6">Síguenos</h2>
               <div className="flex gap-4">
                 {socialLinks.map((link, index) => (
                   <motion.a
@@ -187,24 +203,53 @@ export function ContactPage() {
                 ))}
               </div>
             </div>
-
-            {/* Availability */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 1 }}
-              className="p-6 bg-black text-white rounded-lg"
-            >
-              <h3 className="text-xl tracking-tight mb-3">Current Availability</h3>
-              <p className="text-gray-300 mb-4">
-                I&apos;m currently available for freelance projects and consultations.
-              </p>
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-                <span className="text-sm">Available for new projects</span>
-              </div>
-            </motion.div>
           </motion.div>
+        </div>
+      </div>
+
+      {/* Biblioteca digital */}
+      <div className="bg-gray-50 py-20">
+        <div className="max-w-7xl mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="mb-12"
+          >
+            <h2 className="text-4xl md:text-5xl tracking-tight mb-4">Biblioteca digital</h2>
+            <p className="text-gray-600 max-w-2xl">
+              Descarga o consulta materiales para profundizar en tu estudio. Todo el contenido es
+              gratuito.
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {recursos.map((recurso, index) => (
+              <motion.a
+                key={recurso.title}
+                href={recurso.href}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.08 }}
+                whileHover={{ y: -6 }}
+                className="p-6 bg-white border border-gray-200 rounded-lg hover:shadow-lg transition-shadow flex items-start gap-4"
+              >
+                <div className="p-3 bg-gray-50 rounded-lg shrink-0">
+                  <BookOpen size={20} />
+                </div>
+                <div className="flex-1">
+                  <h4 className="tracking-tight mb-1">{recurso.title}</h4>
+                  <p className="text-gray-500 text-sm mb-3">{recurso.description}</p>
+                  <span className="inline-flex items-center gap-1 text-sm tracking-wide">
+                    <Download size={14} />
+                    Descargar
+                  </span>
+                </div>
+              </motion.a>
+            ))}
+          </div>
         </div>
       </div>
     </div>

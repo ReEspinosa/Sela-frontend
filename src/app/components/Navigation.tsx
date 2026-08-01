@@ -2,18 +2,20 @@ import { motion } from 'motion/react';
 import { Menu, X } from 'lucide-react';
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { useChatbot } from '../context/ChatbotContext';
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+  const { openChatbot } = useChatbot();
 
   const navItems = [
-    { path: '/', label: 'Home' },
-    { path: '/work', label: 'Work' },
-    { path: '/about', label: 'About' },
-    { path: '/services', label: 'Services' },
+    { path: '/', label: 'Inicio' },
+    { path: '/work', label: 'Fe de Jesús' },
+    { path: '/about', label: 'Nosotros' },
+    { path: '/services', label: 'Lecciones' },
     { path: '/blog', label: 'Blog' },
-    { path: '/contact', label: 'Contact' },
+    { path: '/contact', label: 'Contacto' },
   ];
 
   const isActive = (path: string) => {
@@ -36,11 +38,11 @@ export function Navigation() {
             whileHover={{ scale: 1.05 }}
             className="tracking-tight cursor-pointer"
           >
-            Portfolio
+            Selá
           </motion.div>
         </Link>
 
-        {/* Desktop Navigation */}
+        {/* Navegación de escritorio */}
         <div className="hidden md:flex items-center gap-8">
           {navItems.map((item) => (
             <Link
@@ -60,18 +62,25 @@ export function Navigation() {
               )}
             </Link>
           ))}
+          <button
+            onClick={() => openChatbot()}
+            className="px-5 py-2 bg-black text-white rounded-full text-sm tracking-wide hover:bg-gray-800 transition-colors"
+          >
+            Asistente Bíblico
+          </button>
         </div>
 
-        {/* Mobile Menu Button */}
+        {/* Botón de menú móvil */}
         <button
           onClick={() => setIsOpen(!isOpen)}
           className="md:hidden"
+          aria-label="Abrir menú"
         >
           {isOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Menú móvil */}
       {isOpen && (
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -90,6 +99,15 @@ export function Navigation() {
                 {item.label}
               </Link>
             ))}
+            <button
+              onClick={() => {
+                setIsOpen(false);
+                openChatbot();
+              }}
+              className="w-full text-left px-5 py-3 bg-black text-white rounded-full text-sm tracking-wide"
+            >
+              Asistente Bíblico
+            </button>
           </div>
         </motion.div>
       )}

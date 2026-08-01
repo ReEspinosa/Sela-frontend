@@ -8,101 +8,137 @@ export interface BlogPost {
   date: string;
   category: string;
   readTime: string;
+  featured?: boolean;
+  trending?: boolean;
 }
 
 export const blogPosts: BlogPost[] = [
   {
-    id: "future-of-web-design",
-    title: "The Future of Web Design: Trends to Watch in 2025",
+    id: 'como-empezar-a-leer-la-biblia',
+    title: 'Cómo empezar a leer la Biblia sin perderte',
     excerpt:
-      "Exploring the emerging trends that will shape the future of digital experiences, from AI-powered interfaces to immersive 3D environments.",
-    content: `The landscape of web design is evolving at an unprecedented pace. As we move further into 2025, several key trends are emerging that will fundamentally change how we create and interact with digital experiences.
+      'Si nunca has leído la Biblia completa, este es un plan sencillo para empezar sin sentirte abrumado.',
+    content: `Abrir la Biblia por primera vez puede sentirse abrumador: 66 libros, miles de años de historia, géneros literarios distintos. Aquí una forma simple de empezar.
 
-## AI-Powered Personalization
+## Empieza por los evangelios
 
-Artificial intelligence is no longer a futuristic concept—it's here, and it's transforming how we design user experiences. AI-powered personalization allows websites to adapt in real-time to user preferences, creating unique experiences for each visitor.
+Mateo, Marcos, Lucas y Juan cuentan la vida de Jesús desde distintos ángulos. Son el mejor punto de partida porque presentan el centro de la fe cristiana.
 
-## Immersive 3D Environments
+## Lee un poco cada día
 
-WebGL and WebGPU technologies have matured to the point where creating complex 3D environments in the browser is not only possible but practical. We're seeing more brands adopt 3D elements to create memorable, interactive experiences.
+No se trata de terminar rápido, sino de ser constante. Quince minutos al día son suficientes para avanzar sin presión.
 
-## Sustainable Design
+## Usa el Asistente Bíblico
 
-With growing awareness of environmental issues, sustainable web design is becoming crucial. This means optimizing for performance, reducing energy consumption, and creating accessible experiences that work on older devices.
+Cuando encuentres un pasaje difícil de entender, puedes preguntarle directamente al Asistente Bíblico del sitio. Está diseñado para ayudarte a entender el contexto sin perder tiempo buscando en distintas fuentes.
 
-## Voice and Gesture Interfaces
-
-As voice assistants and gesture controls become more sophisticated, web interfaces need to adapt. Designing for these interaction models requires a fundamental shift in how we think about user interfaces.
-
-The future of web design is exciting and full of possibilities. By staying informed about these trends and experimenting with new technologies, we can create better experiences for users while pushing the boundaries of what's possible on the web.`,
+Leer la Biblia es una disciplina que se construye con el tiempo, no una meta que se cumple en una semana.`,
     image:
-      "https://images.unsplash.com/photo-1643116774075-acc00caa9a7b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3ZWIlMjBkZXZlbG9wbWVudCUyMGNvZGV8ZW58MXx8fHwxNzY1MzI2MTk3fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-    author: "Alex Morgan",
-    date: "2024-12-01",
-    category: "Design",
-    readTime: "5 min read",
+      'https://images.unsplash.com/photo-1504052434569-70ad5836ab65?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+    author: 'Fe Sin Filtros',
+    date: '2026-06-15',
+    category: 'Vida cristiana',
+    readTime: '5 min de lectura',
+    featured: true,
+    trending: true,
   },
   {
-    id: "building-design-systems",
-    title: "Building Scalable Design Systems",
+    id: 'preguntas-frecuentes-sabado',
+    title: 'Las preguntas más comunes sobre el sábado',
     excerpt:
-      "A comprehensive guide to creating design systems that grow with your product and team.",
-    content: `Design systems have become essential for maintaining consistency across digital products. Here's what I've learned from building design systems for various clients.
+      'Recopilamos las dudas que más nos hacen sobre el sábado como día de reposo y respondemos cada una con base bíblica.',
+    content: `Cada vez que hablamos del sábado surgen las mismas preguntas. Aquí las respondemos de forma directa.
 
-## Start with Foundations
+## ¿No cambió el día de reposo al domingo?
 
-Before diving into components, establish your foundational elements: color palettes, typography scales, spacing systems, and grid structures. These form the building blocks of everything else.
+No hay ningún mandato bíblico que ordene ese cambio. El domingo se popularizó por tradición histórica, no por instrucción de la Escritura.
 
-## Component Thinking
+## ¿No estamos bajo la gracia y no la ley?
 
-Think in reusable, composable components. Each component should have a single responsibility and be flexible enough to handle various use cases without becoming overly complex.
+Estar bajo gracia no elimina la ley de Dios, la cumple desde el corazón (Romanos 3:31).
 
-## Documentation is Key
+## ¿Qué se puede y qué no se puede hacer en sábado?
 
-A design system is only as good as its documentation. Invest time in creating clear, comprehensive documentation that explains not just how to use components, but when and why.
+Más que una lista de prohibiciones, el sábado es una invitación a descansar del trabajo cotidiano y dedicar el día a la comunión con Dios y la familia.
 
-## Governance and Evolution
-
-Design systems need governance to maintain quality while remaining flexible enough to evolve. Establish clear processes for proposing changes and updating components.
-
-Building a design system is an investment that pays dividends in consistency, efficiency, and quality across your digital products.`,
+Si tienes más preguntas, el Asistente Bíblico puede ayudarte a profundizar en cualquiera de estos puntos.`,
     image:
-      "https://images.unsplash.com/photo-1761746395536-00d334eba480?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxkZXNpZ24lMjBza2V0Y2hpbmd8ZW58MXx8fHwxNzY1Mzc4NTY4fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-    author: "Alex Morgan",
-    date: "2024-11-15",
-    category: "Development",
-    readTime: "8 min read",
+      'https://images.unsplash.com/photo-1495197359483-d092478c170a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+    author: 'Fe Sin Filtros',
+    date: '2026-06-08',
+    category: 'Preguntas frecuentes',
+    readTime: '6 min de lectura',
+    trending: true,
   },
   {
-    id: "user-research-methods",
-    title:
-      "Effective User Research Methods for Modern Products",
+    id: 'como-elegir-una-iglesia',
+    title: 'Cómo dar el paso de visitar una iglesia por primera vez',
     excerpt:
-      "Learn how to conduct user research that actually informs design decisions and improves user experience.",
-    content: `User research is the foundation of great design. Yet many teams struggle to conduct research that truly informs their decisions. Here's my approach to effective user research.
+      'Si nunca has ido a una iglesia adventista, esto es lo que puedes esperar la primera vez.',
+    content: `Visitar una iglesia por primera vez puede generar nervios. Esto es lo que normalmente encontrarás en una iglesia adventista un sábado por la mañana.
 
-## Choosing the Right Methods
+## Escuela Sabática
 
-Different questions require different research methods. Usability testing, interviews, surveys, and analytics each provide unique insights. The key is matching the method to your research goals.
+Es un espacio de estudio en grupos pequeños, organizado por edades, donde se estudia un tema bíblico específico cada semana.
 
-## Recruiting the Right Participants
+## Culto Divino
 
-Your research is only as good as your participants. Take time to recruit people who truly represent your target audience, not just whoever is available.
+Después sigue el servicio principal: alabanza, oración, un mensaje basado en la Biblia y comunión.
 
-## Asking Better Questions
+## Nadie te va a presionar
 
-Avoid leading questions and confirmation bias. Instead, ask open-ended questions that allow participants to share their authentic experiences and perspectives.
+No necesitas saber cantar los himnos, vestir de cierta forma o conocer toda la Biblia para asistir. Vas a ser bienvenido tal como estás.
 
-## Turning Insights into Action
-
-Research is worthless if it doesn't inform decisions. Develop systems for synthesizing findings, sharing insights with your team, and tracking how research impacts your product.
-
-Effective user research requires practice, but the payoff in better products and happier users is worth the investment.`,
+Si quieres encontrar la iglesia adventista más cercana a tu domicilio, puedes usar el buscador en la sección Nosotros.`,
     image:
-      "https://images.unsplash.com/photo-1748346918817-0b1b6b2f9bab?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBvZmZpY2UlMjB0ZWFtfGVufDF8fHx8MTc2NTM1NDcyMnww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-    author: "Explora las verdades Bíblicas",
-    date: "2024-10-20",
-    category: "UX Research",
-    readTime: "6 min read",
+      'https://images.unsplash.com/photo-1438032005730-c779502df39b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+    author: 'Fe Sin Filtros',
+    date: '2026-05-28',
+    category: 'Vida cristiana',
+    readTime: '4 min de lectura',
+  },
+  {
+    id: 'elena-white-quien-fue',
+    title: 'Quién fue Elena G. de White y por qué se le cita tanto',
+    excerpt:
+      'Sus escritos acompañan el estudio bíblico adventista desde hace más de un siglo. Esto es lo que debes saber.',
+    content: `Elena G. de White (1827-1915) fue una de las fundadoras de la Iglesia Adventista del Séptimo Día. Sus escritos se consideran un consejo inspirado, nunca al mismo nivel que la Biblia.
+
+## No reemplaza a la Biblia
+
+Ella misma escribió que sus escritos son "una luz menor" que dirige a "la luz mayor", la Biblia.
+
+## Temas que abordó
+
+Escribió sobre vida cristiana, salud, educación, profecía y la vida de Cristo. Libros como "El Deseado de todas las gentes" o "El Camino a Cristo" siguen siendo ampliamente leídos.
+
+## Dónde leerla
+
+Puedes encontrar varios de sus libros de forma gratuita en la biblioteca digital de este sitio.`,
+    image:
+      'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+    author: 'Fe Sin Filtros',
+    date: '2026-05-14',
+    category: 'Doctrina',
+    readTime: '7 min de lectura',
+    trending: true,
+  },
+  {
+    id: 'testimonio-encontrar-comunidad',
+    title: 'Testimonio: cómo encontré una comunidad después de años de buscar respuestas',
+    excerpt:
+      'Un testimonio real de alguien que llegó a la fe adventista después de un largo proceso de preguntas.',
+    content: `Durante años tuve preguntas que nadie parecía responder con calma: qué pasa después de la muerte, por qué hay tanto sufrimiento, si de verdad Dios tiene un plan.
+
+Encontré respuestas estudiando la Biblia directamente, sin intermediarios que suavizaran lo que dice. Eso me llevó a entender doctrinas como el estado de los muertos y el sábado de una forma que finalmente tenía sentido.
+
+Lo que más agradezco fue encontrar una comunidad que no exige perfección, sino que acompaña el proceso. Si estás en un momento de búsqueda similar, no tienes que recorrerlo solo.`,
+    image:
+      'https://images.unsplash.com/photo-1523803326055-13445f07547f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+    author: 'Testimonio de la comunidad',
+    date: '2026-04-30',
+    category: 'Testimonios',
+    readTime: '5 min de lectura',
+    featured: true,
   },
 ];

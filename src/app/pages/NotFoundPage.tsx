@@ -21,11 +21,11 @@ export function NotFoundPage() {
           </motion.div>
           
           <h1 className="text-4xl md:text-6xl tracking-tighter mb-6">
-            Page Not Found
+            Página no encontrada
           </h1>
           
           <p className="text-xl text-gray-600 mb-12 max-w-md mx-auto">
-            The page you&apos;re looking for doesn&apos;t exist or has been moved.
+            La página que buscas no existe o fue movida.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -36,7 +36,7 @@ export function NotFoundPage() {
                 className="inline-flex items-center gap-2 px-8 py-4 bg-black text-white rounded-full tracking-wide hover:bg-gray-800 transition-colors"
               >
                 <Home size={18} />
-                Go Home
+                Ir al inicio
               </motion.button>
             </Link>
             
@@ -45,7 +45,7 @@ export function NotFoundPage() {
               className="inline-flex items-center gap-2 px-8 py-4 bg-gray-100 text-black rounded-full tracking-wide hover:bg-gray-200 transition-colors"
             >
               <ArrowLeft size={18} />
-              Go Back
+              Regresar
             </button>
           </div>
         </motion.div>
