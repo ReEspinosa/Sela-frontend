@@ -6,8 +6,8 @@ import { useChatbot } from '../context/ChatbotContext';
 
 const verses = [
   {
-    text: '"Aquí está la paciencia de los santos, los que guardan los mandamientos de Dios y la fe de Jesús."',
-    reference: 'Apocalipsis 14:12',
+    text: '"Y si alguno de vosotros tiene falta de sabiduría, pídala a Dios, el cual da a todos abundantemente y sin reproche, y le será dada."',
+    reference: 'Santiago 1:5',
   },
 ];
 

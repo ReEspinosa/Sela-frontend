@@ -50,8 +50,9 @@ export function Hero() {
             transition={{ duration: 0.8, delay: 1 }}
             className="text-gray-500 max-w-2xl mx-auto leading-relaxed"
           >
-              Descubre las doctrinas bíblicas con nuestro Asistente Bíblico,
-              estudia el curso Fe de Jesús y encuentra la iglesia adventista más cercana a tu hogar.
+              Resuelve esas dudas teológicas que nunca te atreverías a preguntar en voz alta:
+              nuestro Asistente Bíblico te responde con base en la Biblia, sin juicios.
+
           </motion.p>
 
           <motion.div

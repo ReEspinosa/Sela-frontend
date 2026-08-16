@@ -18,10 +18,10 @@ const footerLinks = {
 };
 
 const socialLinks = [
-  { icon: Mail, label: 'Correo', href: 'mailto:contacto@sela.org' },
-  { icon: Facebook, label: 'Facebook', href: '#' },
-  { icon: Instagram, label: 'Instagram', href: '#' },
-  { icon: Youtube, label: 'YouTube', href: '#' },
+  { icon: Mail, label: 'Correo', href: 'mailto:rebeca07e.r@gmail.com' },
+  { icon: Facebook, label: 'Facebook', href: 'https://www.facebook.com/profile.php?id=61586682989255' },
+  { icon: Instagram, label: 'Instagram', href: 'https://www.instagram.com/rbkespinosa?igsh=OHQwMGw5MzdwMno1&utm_source=qr' },
+  { icon: Youtube, label: 'YouTube', href: 'https://www.youtube.com/playlist?list=PL9AhkiDkdip0HTusYT5ooZe2pnEGiqZ88' },
 ];
 
 export function Footer() {
@@ -91,7 +91,7 @@ export function Footer() {
         </div>
 
         <div className="pt-8 border-t border-gray-800 text-center text-gray-500 text-sm">
-          <p>© 2026 Selá. Iglesia Adventista del Séptimo Día.</p>
+          <p>© 2026 Selá. RBKESPINOSA </p>
         </div>
       </div>
     </footer>
