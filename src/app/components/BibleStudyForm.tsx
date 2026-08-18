@@ -7,7 +7,7 @@ const modalidades = [
   { value: 'presencial', label: 'Presencial' },
 ];
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+const API_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000';
 
 // Cada país tiene: nombre en español, código de teléfono, y aliases para búsqueda
 // (sin acentos, en inglés, variantes comunes)
