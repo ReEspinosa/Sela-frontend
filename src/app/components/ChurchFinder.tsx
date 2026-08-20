@@ -155,14 +155,20 @@ export function ChurchFinder({ variant = 'light' }: ChurchFinderProps) {
         {error && <p className={`text-sm mt-3 ${isDark ? 'text-red-400' : 'text-red-500'}`}>{error}</p>}
 
         {abierto && !error && (
-            <motion.p
+            <motion.div
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
-                className={`text-sm mt-3 flex items-center gap-1.5 ${isDark ? 'text-gray-300' : 'text-gray-600'}`}
+                className="mt-3"
             >
-              Se abrió Google Maps en una pestaña nueva con las iglesias cerca de ti.
-              <ExternalLink size={14} />
-            </motion.p>
+              <p className={`text-sm flex items-center gap-1.5 ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
+                Se abrió Google Maps en una pestaña nueva con las iglesias cerca de ti.
+                <ExternalLink size={14} />
+              </p>
+              <p className={`text-xs mt-1 ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>
+                Busca los resultados que digan "Adventista del Séptimo Día" — Google Maps a veces
+                muestra ahí cerca otras iglesias de nombre parecido que no son de esta denominación.
+              </p>
+            </motion.div>
         )}
       </div>
   );
