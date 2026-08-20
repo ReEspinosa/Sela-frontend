@@ -1,19 +1,21 @@
 // Buscador de iglesias adventistas.
-// En vez de intentar mostrar un mapa embebido con datos que pueden no existir
-// en OpenStreetMap para esta zona, este componente abre Google Maps directamente
-// (en una pestaña nueva) ya centrado en la ubicación de la persona, con la
-// búsqueda "Iglesia Adventista del Séptimo Día" lista y los pines reales de
-// Google Maps.
+// Manda directamente a Google Maps (navegación en la misma pestaña, no pop-up)
+// ya centrado en la ubicación de la persona, con la búsqueda
+// "Iglesia Adventista del Séptimo Día" lista y los pines reales de Google Maps.
+//
+// Usamos navegación directa (window.location.href) en vez de abrir pestaña
+// nueva porque los navegadores móviles (sobre todo Safari en iOS) bloquean
+// o rompen los pop-ups abiertos después de una acción async como pedir
+// geolocalización, incluso con el truco de abrir la pestaña en blanco antes.
+// Navegar en la misma pestaña es 100% confiable en cualquier navegador.
 //
 // Dos formas de ubicar a la persona:
 // 1. "Usar mi ubicación" -> geolocalización del navegador (se difumina un poco).
 // 2. Escribir una ciudad -> se geocodifica con Nominatim (OpenStreetMap, gratis,
-//    solo para convertir el nombre de la ciudad en coordenadas) y luego se abre
-//    Google Maps centrado ahí.
+//    solo para convertir el nombre de la ciudad en coordenadas).
 
 import { useState } from 'react';
-import { motion } from 'motion/react';
-import { Search, LocateFixed, Loader2, MapPin, ExternalLink } from 'lucide-react';
+import { Search, LocateFixed, Loader2, MapPin } from 'lucide-react';
 
 const BUSQUEDA = 'Iglesia Adventista del Séptimo Día';
 
@@ -23,13 +25,9 @@ function difuminarUbicacion(lat: number, lng: number): [number, number] {
   return [lat + deltaLat, lng + deltaLng];
 }
 
-function abrirGoogleMaps(lat: number, lng: number, ventana?: Window | null) {
+function irAGoogleMaps(lat: number, lng: number) {
   const url = `https://www.google.com/maps/search/${encodeURIComponent(BUSQUEDA)}/@${lat},${lng},13z`;
-  if (ventana) {
-    ventana.location.href = url;
-  } else {
-    window.open(url, '_blank');
-  }
+  window.location.href = url;
 }
 
 async function geocodificarCiudad(ciudad: string): Promise<[number, number] | null> {
@@ -49,13 +47,11 @@ export function ChurchFinder({ variant = 'light' }: ChurchFinderProps) {
   const [query, setQuery] = useState('');
   const [cargando, setCargando] = useState(false);
   const [error, setError] = useState('');
-  const [abierto, setAbierto] = useState(false);
 
   const isDark = variant === 'dark';
 
   function pedirUbicacion() {
     setError('');
-    setAbierto(false);
     setCargando(true);
 
     if (!navigator.geolocation) {
@@ -64,21 +60,13 @@ export function ChurchFinder({ variant = 'light' }: ChurchFinderProps) {
       return;
     }
 
-    // Abrimos la pestaña en blanco AHORA MISMO, dentro del clic directo del
-    // usuario. Si esperamos a que llegue la ubicación (que es async), el
-    // navegador ya no lo cuenta como "clic directo" y bloquea el pop-up.
-    const ventanaNueva = window.open('', '_blank');
-
     navigator.geolocation.getCurrentPosition(
         (pos) => {
           const [lat, lng] = difuminarUbicacion(pos.coords.latitude, pos.coords.longitude);
-          abrirGoogleMaps(lat, lng, ventanaNueva);
-          setAbierto(true);
-          setCargando(false);
+          irAGoogleMaps(lat, lng);
         },
         (err) => {
           console.error('Error de geolocalización:', err);
-          ventanaNueva?.close();
           if (err.code === err.PERMISSION_DENIED) {
             setError('No diste permiso de ubicación. Puedes buscar por ciudad en su lugar.');
           } else {
@@ -95,19 +83,17 @@ export function ChurchFinder({ variant = 'light' }: ChurchFinderProps) {
     if (!query.trim()) return;
 
     setError('');
-    setAbierto(false);
     setCargando(true);
 
     const coords = await geocodificarCiudad(query.trim());
-    setCargando(false);
 
     if (!coords) {
       setError('No encontramos esa ciudad. Revisa cómo la escribiste, o usa tu ubicación.');
+      setCargando(false);
       return;
     }
 
-    abrirGoogleMaps(coords[0], coords[1]);
-    setAbierto(true);
+    irAGoogleMaps(coords[0], coords[1]);
   }
 
   const inputClasses = isDark
@@ -132,9 +118,7 @@ export function ChurchFinder({ variant = 'light' }: ChurchFinderProps) {
                 className={inputClasses}
             />
           </div>
-          <motion.button
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.97 }}
+          <button
               type="submit"
               disabled={cargando}
               className={`px-8 py-4 rounded-full tracking-wide transition-colors disabled:opacity-50 flex items-center justify-center gap-2 ${
@@ -143,7 +127,7 @@ export function ChurchFinder({ variant = 'light' }: ChurchFinderProps) {
           >
             {cargando ? <Loader2 size={16} className="animate-spin" /> : <MapPin size={16} />}
             Buscar iglesia
-          </motion.button>
+          </button>
         </form>
 
         <button
@@ -157,7 +141,7 @@ export function ChurchFinder({ variant = 'light' }: ChurchFinderProps) {
           {cargando ? (
               <>
                 <Loader2 size={16} className="animate-spin" />
-                Obteniendo tu ubicación...
+                Abriendo el mapa...
               </>
           ) : (
               <>
@@ -168,17 +152,6 @@ export function ChurchFinder({ variant = 'light' }: ChurchFinderProps) {
         </button>
 
         {error && <p className={`text-sm mt-3 ${isDark ? 'text-red-400' : 'text-red-500'}`}>{error}</p>}
-
-        {abierto && !error && (
-            <motion.p
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                className={`text-sm mt-3 flex items-center gap-1.5 ${isDark ? 'text-gray-300' : 'text-gray-600'}`}
-            >
-              Se abrió Google Maps en una pestaña nueva con las iglesias cerca de ti.
-              <ExternalLink size={14} />
-            </motion.p>
-        )}
       </div>
   );
 }
