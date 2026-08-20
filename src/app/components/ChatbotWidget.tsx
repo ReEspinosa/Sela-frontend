@@ -148,6 +148,21 @@ export function ChatbotWidget() {
       <AnimatePresence>
         {isOpen && (
           <motion.div
+            key="backdrop-chat"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            onClick={closeChatbot}
+            className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm sm:hidden"
+            aria-hidden="true"
+          />
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
             key="panel-chat"
             initial={{ opacity: 0, y: 30, scale: 0.97 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -155,7 +170,7 @@ export function ChatbotWidget() {
             transition={{ duration: 0.25, ease: 'easeOut' }}
             role="dialog"
             aria-label="Asistente Bíblico"
-            className="fixed bottom-6 right-6 z-50 w-[380px] max-w-[calc(100vw-32px)] h-[560px] max-h-[calc(100vh-48px)] bg-white rounded-2xl shadow-2xl border border-gray-200 flex flex-col overflow-hidden"
+            className="fixed z-50 inset-3 sm:inset-auto sm:bottom-6 sm:right-6 sm:w-[380px] sm:max-w-[calc(100vw-32px)] sm:h-[560px] sm:max-h-[calc(100vh-48px)] bg-white rounded-2xl shadow-2xl border border-gray-200 flex flex-col overflow-hidden"
           >
             <header className="flex items-center justify-between px-5 py-4 bg-black text-white">
               <span className="tracking-tight">Asistente Bíblico</span>
