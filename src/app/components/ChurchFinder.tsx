@@ -23,9 +23,13 @@ function difuminarUbicacion(lat: number, lng: number): [number, number] {
   return [lat + deltaLat, lng + deltaLng];
 }
 
-function abrirGoogleMaps(lat: number, lng: number) {
+function abrirGoogleMaps(lat: number, lng: number, ventana?: Window | null) {
   const url = `https://www.google.com/maps/search/${encodeURIComponent(BUSQUEDA)}/@${lat},${lng},13z`;
-  window.open(url, '_blank');
+  if (ventana) {
+    ventana.location.href = url;
+  } else {
+    window.open(url, '_blank');
+  }
 }
 
 async function geocodificarCiudad(ciudad: string): Promise<[number, number] | null> {
@@ -60,15 +64,21 @@ export function ChurchFinder({ variant = 'light' }: ChurchFinderProps) {
       return;
     }
 
+    // Abrimos la pestaña en blanco AHORA MISMO, dentro del clic directo del
+    // usuario. Si esperamos a que llegue la ubicación (que es async), el
+    // navegador ya no lo cuenta como "clic directo" y bloquea el pop-up.
+    const ventanaNueva = window.open('', '_blank');
+
     navigator.geolocation.getCurrentPosition(
         (pos) => {
           const [lat, lng] = difuminarUbicacion(pos.coords.latitude, pos.coords.longitude);
-          abrirGoogleMaps(lat, lng);
+          abrirGoogleMaps(lat, lng, ventanaNueva);
           setAbierto(true);
           setCargando(false);
         },
         (err) => {
           console.error('Error de geolocalización:', err);
+          ventanaNueva?.close();
           if (err.code === err.PERMISSION_DENIED) {
             setError('No diste permiso de ubicación. Puedes buscar por ciudad en su lugar.');
           } else {
