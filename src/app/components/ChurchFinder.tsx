@@ -116,6 +116,11 @@ export function ChurchFinder({ variant = 'light' }: ChurchFinderProps) {
 
   return (
       <div>
+        <p className={`text-xs mb-3 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
+          Al abrir el mapa, fíjate que los resultados digan "Adventista del Séptimo Día" —
+          a veces aparecen ahí cerca otras iglesias de nombre parecido que no son de esta denominación.
+        </p>
+
         <form onSubmit={handleSearch} className="flex flex-col sm:flex-row gap-3 mb-4">
           <div className="relative flex-1">
             <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
@@ -165,20 +170,14 @@ export function ChurchFinder({ variant = 'light' }: ChurchFinderProps) {
         {error && <p className={`text-sm mt-3 ${isDark ? 'text-red-400' : 'text-red-500'}`}>{error}</p>}
 
         {abierto && !error && (
-            <motion.div
+            <motion.p
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="mt-3"
+                className={`text-sm mt-3 flex items-center gap-1.5 ${isDark ? 'text-gray-300' : 'text-gray-600'}`}
             >
-              <p className={`text-sm flex items-center gap-1.5 ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
-                Se abrió Google Maps en una pestaña nueva con las iglesias cerca de ti.
-                <ExternalLink size={14} />
-              </p>
-              <p className={`text-xs mt-1 ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>
-                Busca los resultados que digan "Adventista del Séptimo Día" — Google Maps a veces
-                muestra ahí cerca otras iglesias de nombre parecido que no son de esta denominación.
-              </p>
-            </motion.div>
+              Se abrió Google Maps en una pestaña nueva con las iglesias cerca de ti.
+              <ExternalLink size={14} />
+            </motion.p>
         )}
       </div>
   );
