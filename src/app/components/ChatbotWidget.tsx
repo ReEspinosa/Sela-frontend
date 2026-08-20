@@ -170,7 +170,7 @@ export function ChatbotWidget() {
             transition={{ duration: 0.25, ease: 'easeOut' }}
             role="dialog"
             aria-label="Asistente Bíblico"
-            className="fixed z-50 inset-3 sm:inset-auto sm:bottom-6 sm:right-6 sm:w-[380px] sm:max-w-[calc(100vw-32px)] sm:h-[560px] sm:max-h-[calc(100vh-48px)] bg-white rounded-2xl shadow-2xl border border-gray-200 flex flex-col overflow-hidden"
+            className="fixed z-50 inset-3 sm:inset-auto sm:bottom-6 sm:right-6 sm:w-[clamp(380px,32vw,520px)] sm:h-[clamp(520px,75vh,780px)] sm:max-w-[calc(100vw-48px)] sm:max-h-[calc(100vh-48px)] bg-white rounded-2xl shadow-2xl border border-gray-200 flex flex-col overflow-hidden"
           >
             <header className="flex items-center justify-between px-5 py-4 bg-black text-white">
               <span className="tracking-tight">Asistente Bíblico</span>
