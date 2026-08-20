@@ -1,5 +1,6 @@
 // Móntalo una sola vez en App.tsx (ya está hecho). Se conecta a tu backend
-// en VITE_BACKEND_URL + /api/chat. Ajusta esa variable en tu .env.
+// en VITE_BACKEND_URL + /api/chat, ahora en streaming: el texto aparece
+// palabra por palabra según el asistente lo va generando.
 
 import { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
@@ -33,6 +34,7 @@ export function ChatbotWidget() {
   const [messages, setMessages] = useState<Message[]>([MENSAJE_BIENVENIDA]);
   const [input, setInput] = useState('');
   const [isSending, setIsSending] = useState(false);
+  const [isStreaming, setIsStreaming] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -65,14 +67,54 @@ export function ChatbotWidget() {
         body: JSON.stringify({ messages: nuevoHistorial }),
       });
 
-      if (!res.ok) throw new Error('Respuesta no válida del servidor');
+      if (!res.ok || !res.body) throw new Error('Respuesta no válida del servidor');
 
-      const data = await res.json();
-      setMessages((prev) => [...prev, { role: 'assistant', content: data.content }]);
+      // Agregamos un mensaje vacío del asistente, que vamos a ir rellenando
+      // según lleguen los pedazos de texto (streaming).
+      setIsSending(false);
+      setIsStreaming(true);
+      setMessages((prev) => [...prev, { role: 'assistant', content: '' }]);
+
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder();
+      let buffer = '';
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        buffer += decoder.decode(value, { stream: true });
+        const lineas = buffer.split('\n');
+        buffer = lineas.pop() || '';
+
+        for (const linea of lineas) {
+          const trimmed = linea.trim();
+          if (!trimmed.startsWith('data:')) continue;
+
+          const payload = trimmed.slice(5).trim();
+          if (payload === '[DONE]') continue;
+
+          try {
+            const json = JSON.parse(payload);
+            if (json.content) {
+              setMessages((prev) => {
+                const copia = [...prev];
+                const ultimo = copia[copia.length - 1];
+                copia[copia.length - 1] = { ...ultimo, content: ultimo.content + json.content };
+                return copia;
+              });
+            }
+          } catch {
+            // fragmento incompleto, se ignora
+          }
+        }
+      }
+
+      setIsStreaming(false);
     } catch {
       setError('No pudimos enviar tu pregunta. Intenta de nuevo en unos segundos.');
-    } finally {
       setIsSending(false);
+      setIsStreaming(false);
     }
   }
 
@@ -80,6 +122,8 @@ export function ChatbotWidget() {
     e.preventDefault();
     enviarPregunta(input);
   }
+
+  const cargando = isSending || isStreaming;
 
   return (
     <>
@@ -135,6 +179,9 @@ export function ChatbotWidget() {
                   }`}
                 >
                   {m.content}
+                  {isStreaming && m.role === 'assistant' && i === messages.length - 1 && (
+                    <span className="inline-block w-1.5 h-4 ml-0.5 bg-black/40 animate-pulse align-middle" />
+                  )}
                 </div>
               ))}
 
@@ -167,13 +214,13 @@ export function ChatbotWidget() {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Escribe tu pregunta sobre la Biblia o la fe adventista..."
-                disabled={isSending}
+                disabled={cargando}
                 aria-label="Escribe tu pregunta"
                 className="flex-1 px-4 py-2 bg-gray-50 border border-gray-200 rounded-full text-sm focus:outline-none focus:border-black transition-colors"
               />
               <button
                 type="submit"
-                disabled={isSending || !input.trim()}
+                disabled={cargando || !input.trim()}
                 aria-label="Enviar pregunta"
                 className="p-3 bg-black text-white rounded-full disabled:opacity-40 hover:bg-gray-800 transition-colors"
               >
